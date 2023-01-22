@@ -1,189 +1,12 @@
-// PRODUCTOS
-const productos = [
-    // Shirts
-    {
-        id: "shirts-01",
-        titulo: "Happy Life",
-        imagen: "./img/camisetas/01.jfif",
-        categoria: {
-            nombre: "Camisetas",
-            id: "camisetas"
-        },
-        precio: 27000
-    },
-    {
-        id: "shirts-02",
-        titulo: "Mickey",
-        imagen: "./img/camisetas/02.jfif",
-        categoria: {
-            nombre: "Camisetas",
-            id: "camisetas"
-        },
-        precio: 27000
-    },
-    {
-        id: "shirts-03",
-        titulo: "Snoopy",
-        imagen: "./img/camisetas/03.jfif",
-        categoria: {
-            nombre: "Camisetas",
-            id: "camisetas"
-        },
-        precio: 27000
-    },
-    {
-        id: "shirts-04",
-        titulo: "Moment",
-        imagen: "./img/camisetas/04.jfif",
-        categoria: {
-            nombre: "Camisetas",
-            id: "camisetas"
-        },
-        precio: 27000
-    },
-    {
-        id: "shirts-05",
-        titulo: "Living Dream",
-        imagen: "./img/camisetas/05.jfif",
-        categoria: {
-            nombre: "Camisetas",
-            id: "camisetas"
-        },
-        precio: 27000
-    },
-    // Croptops
-    {
-        id: "croptop-01",
-        titulo: "Crop Rojo",
-        imagen: "./img/croptop/01.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-02",
-        titulo: "Crop Cadena Azul",
-        imagen: "./img/croptop/02.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-03",
-        titulo: "Crop Cadena Negro",
-        imagen: "./img/croptop/03.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-04",
-        titulo: "Crop Negro",
-        imagen: "./img/croptop/04.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-05",
-        titulo: "Crop Cadena Rojo",
-        imagen: "./img/croptop/05.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-06",
-        titulo: "Crop Cadena Blanco",
-        imagen: "./img/croptop/06.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-07",
-        titulo: "Crop Cadena Ladrillo",
-        imagen: "./img/croptop/07.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    {
-        id: "camiseta-08",
-        titulo: "Crop Cadena Rosado",
-        imagen: "./img/croptop/08.jfif",
-        categoria: {
-            nombre: "Croptop",
-            id: "croptop"
-        },
-        precio: 19000
-    },
-    // Hoodies
-    {
-        id: "Hoodies-01",
-        titulo: "Hoodie Resorte",
-        imagen: "./img/hoodies/01.jpg",
-        categoria: {
-            nombre: "Hoodies",
-            id: "hoodies"
-        },
-        precio: 65000
-    },
-    {
-        id: "Hoodies-02",
-        titulo: "Hoodie Gris",
-        imagen: "./img/hoodies/02.jpg",
-        categoria: {
-            nombre: "Hoodies",
-            id: "hoodies"
-        },
-        precio: 65000
-    },
-    {
-        id: "Hoodies-03",
-        titulo: "Hoodie y Sudadera",
-        imagen: "./img/hoodies/03.jpg",
-        categoria: {
-            nombre: "Hoodies",
-            id: "hoodies"
-        },
-        precio: 65000
-    },
-    {
-        id: "Hoodies-04",
-        titulo: "Hoodie Whatever",
-        imagen: "./img/hoodies/04.jpg",
-        categoria: {
-            nombre: "Hoodies",
-            id: "hoodies"
-        },
-        precio: 65000
-    },
-    {
-        id: "Hoodies-05",
-        titulo: "Hoodie Blanco",
-        imagen: "./img/hoodies/05.jpg",
-        categoria: {
-            nombre: "Hoodies",
-            id: "hoodies"
-        },
-        precio: 65000
-    }
-];
+let productos = [];
+
+fetch("./js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+
+    })
 
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
@@ -216,7 +39,7 @@ function cargarProductos(productosElegidos) {
     actualizarBotonesAgregar();
 }
 
-cargarProductos(productos);
+
 
 botonesCategorias.forEach(boton => {
     boton.addEventListener("click", (e) => {
@@ -257,6 +80,25 @@ if (productosEnCarritoLS) {
 }
 
 function agregarAlCarrito(e) {
+
+    Toastify({
+        text: "Producto en el Carrito",
+        duration: 2000,
+        close: false,
+        gravity: "bottom", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #520d58, #e95cd6)",
+          borderRadius: "1rem"
+        },
+        offset: {
+            x: 30, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: 150, // vertical axis - can be a number or a string indicating unity. eg: '2em'
+          },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idBoton);
 

@@ -72,6 +72,25 @@ function actualizarBotonesEliminar() {
 }
 
 function eliminarDelCarrito(e) {
+
+    Toastify({
+        text: "Producto Eliminado",
+        duration: 1500,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #520d58, #e95cd6)",
+          borderRadius: "1rem"
+        },
+        offset: {
+            x: 30, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: 50, // vertical axis - can be a number or a string indicating unity. eg: '2em'
+          },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
     
@@ -84,9 +103,28 @@ function eliminarDelCarrito(e) {
 
 botonVaciar.addEventListener("click", vaciarCarrito);
 function vaciarCarrito() {
-    productosEnCarrito.length = 0;
-    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-    cargarProductosCarrito();
+
+    Swal.fire({
+        title: '¿Quieres vaciar todo el Carrito?',
+        text: "No podras revertir los cambios",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Vaciar carrito'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            productosEnCarrito.length = 0;
+            localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+            cargarProductosCarrito();
+          Swal.fire(
+            'Carrito Vacio!',
+            'Haz dejado el carrito sin nada.',
+            'success'
+          )
+        }
+      })
+
 }
 
 
@@ -97,6 +135,12 @@ function actualizarTotal() {
 
 botonComprar.addEventListener("click", comprarCarrito);
 function comprarCarrito() {
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Gracias por Comprar',
+      })
 
     productosEnCarrito.length = 0;
     localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
